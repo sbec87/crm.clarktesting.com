@@ -1,0 +1,18 @@
+RewriteEngine On
+
+RewriteBase /
+
+#Remove Extensions from URLs (with trailing slash)
+RewriteCond /%{REQUEST_FILENAME} !-f
+RewriteCond /%{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)/$ $1.php [NC,L]
+
+#Remove Extensions from URLs (without trailing slash)
+RewriteCond /%{REQUEST_FILENAME} !-f
+RewriteCond /%{REQUEST_FILENAME} !-d
+RewriteCond /%{REQUEST_FILENAME} !/$
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+#DISABLE GIT ACCESS
+RewriteRule ^(.*/)?\.git+ - [F,L]
+ErrorDocument 403 "Access Forbidden"
